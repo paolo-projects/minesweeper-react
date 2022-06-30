@@ -14,6 +14,7 @@ const root = createRoot(container);
 const context: ServicesInterface = {
     minesweeper: new MinesweeperService(),
 };
+context.minesweeper!.init(8, 20);
 
 root.render(
     <React.StrictMode>

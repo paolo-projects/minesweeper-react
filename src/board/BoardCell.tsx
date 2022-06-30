@@ -1,11 +1,13 @@
 import clsx from "clsx";
 import React, { CSSProperties } from "react";
 import styles from "./board-cell.module.css";
-import { DisplayedCell } from "mynesweeper/lib/minesweeper/board";
 import { useAppSelector } from "../app/hooks";
+import bombSvg from "../assets/bomb-svg.svg";
+import { DisplayedCell } from "mynesweeper/lib/minesweeper/board";
 
 type BoardCellProps = {
     display: DisplayedCell;
+    probableBomb: boolean;
     onClick: () => void;
     onRightClick: () => void;
     style: CSSProperties;
@@ -13,6 +15,7 @@ type BoardCellProps = {
 
 export default function BoardCell({
     display,
+    probableBomb,
     onClick,
     onRightClick,
     style,
@@ -28,7 +31,9 @@ export default function BoardCell({
     } else {
         switch (display) {
             case "unknown":
-                cellClass = styles.untouched;
+                cellClass = probableBomb
+                    ? styles.probableBomb
+                    : styles.untouched;
                 break;
             case "empty":
                 cellClass = styles.empty;
@@ -44,7 +49,15 @@ export default function BoardCell({
         }
     }
 
-    const onMouseDown = (
+    const handleClick = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        if (display === "unknown" && !probableBomb) {
+            onClick();
+        }
+    };
+
+    const handleMouseDown = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>
     ) => {
         if (event.button === 2) {
@@ -58,11 +71,19 @@ export default function BoardCell({
         <div
             className={clsx(styles.boardCell, cellClass)}
             style={style}
-            onMouseDown={(e) => onMouseDown(e)}
-            onClick={() => onClick()}
+            onMouseDown={(e) => handleMouseDown(e)}
+            onClick={(e) => handleClick(e)}
+            onContextMenu={(e) => e.preventDefault()}
         >
             {typeof display === "number" ? (
                 <div className={styles.boardCellNumber}>{display}</div>
+            ) : null}
+            {display === "unknown" && probableBomb ? (
+                <img
+                    className={styles.bombImage}
+                    src={bombSvg}
+                    alt="Probable bomb"
+                />
             ) : null}
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { setBoard, setIsLost, setIsWon } from "../app/board/board";
+import { setBoard, setGuess, setIsLost, setIsWon } from "../app/board/board";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { ServicesContext } from "../services/ServicesContext";
 import styles from "./board.module.css";
@@ -26,27 +26,49 @@ export default function MineSweeperBoard({}: MineSweeperBoardProps) {
         }
     };
 
-    const onCellRightClick = (row: number, column: number) => {};
+    const onCellRightClick = (row: number, column: number) => {
+        const cell = board.board.find(
+            (v) => v.row === row && v.column === column
+        );
+        const guess = board.guesses.find(
+            (v) => v.row === row && v.column === column
+        );
+        if (cell && guess && cell.value === "unknown") {
+            dispatch(
+                setGuess({
+                    row,
+                    column,
+                    isProbableBomb: !guess.isProbableBomb,
+                })
+            );
+        }
+    };
 
     return (
         <div
             className={styles.board}
             style={{ gridTemplateColumns: `repeat(${board.size}, 53px)` }}
         >
-            {board.board.map((value) => (
-                <BoardCell
-                    display={value.value}
-                    onClick={() => onCellClick(value.row, value.column)}
-                    onRightClick={() =>
-                        onCellRightClick(value.row, value.column)
-                    }
-                    style={{
-                        gridRow: value.row + 1,
-                        gridColumn: value.column + 1,
-                    }}
-                    key={`${value.row},${value.column}`}
-                />
-            ))}
+            {board.board.map((value) => {
+                const guess = board.guesses.find(
+                    (v) => v.row === value.row && v.column === value.column
+                );
+                return guess ? (
+                    <BoardCell
+                        display={value.value}
+                        probableBomb={guess.isProbableBomb}
+                        onClick={() => onCellClick(value.row, value.column)}
+                        onRightClick={() =>
+                            onCellRightClick(value.row, value.column)
+                        }
+                        style={{
+                            gridRow: value.row + 1,
+                            gridColumn: value.column + 1,
+                        }}
+                        key={`${value.row},${value.column}`}
+                    />
+                ) : null;
+            })}
         </div>
     );
 }

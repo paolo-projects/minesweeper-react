@@ -34,3 +34,13 @@
 .boardCell.won {
     background-color: green;
 }
+
+.boardCell.probableBomb {
+    background-color: rgb(255, 225, 0);
+}
+
+.boardCell .bombImage {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
