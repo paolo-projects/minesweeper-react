@@ -1,0 +1,36 @@
+.boardCell {
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    border: 1px solid #000;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boardCellNumber {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.boardCell.empty {
+    background-color: white;
+}
+
+.boardCell.bomb {
+    background-color: red;
+}
+
+.boardCell.untouched {
+    background-color: gray;
+}
+
+.boardCell.number {
+    background-color: white;
+}
+
+.boardCell.won {
+    background-color: green;
+}
