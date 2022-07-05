@@ -1,0 +1,24 @@
+name: Publish to Pages
+
+on:
+    release:
+        types: [created]
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+
+            - name: Build node app
+            - run: npm ci
+            - run: npm run build
+
+            - name: deploy to pages
+            - uses: peaceiris/actions-gh-pages@v3
+              with:
+                  deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+                  publish_dir: ./build
