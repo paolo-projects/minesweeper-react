@@ -5,9 +5,7 @@ import { ServicesContext } from "../services/ServicesContext";
 import styles from "./board.module.css";
 import BoardCell from "./BoardCell";
 
-type MineSweeperBoardProps = {};
-
-export default function MineSweeperBoard({}: MineSweeperBoardProps) {
+export default function MineSweeperBoard() {
     const services = useContext(ServicesContext);
     const board = useAppSelector((state) => state.board);
     const dispatch = useAppDispatch();
