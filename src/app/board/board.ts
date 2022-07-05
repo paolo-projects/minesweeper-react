@@ -1,5 +1,5 @@
+import { BoardEntry } from "@paoloinfante/minesweeper/lib/minesweeper/board";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BoardEntry } from "mynesweeper/lib/minesweeper/board";
 
 export type GuessEntry = {
     row: number;
@@ -26,7 +26,8 @@ export const boardSlice = createSlice({
     } as BoardState,
     reducers: {
         setBoard: (state, board: PayloadAction<BoardEntry[]>) => {
-            state.board = board.payload;
+            state.board = [];
+            state.board.push(...board.payload);
         },
         setSize: (state, size: PayloadAction<number>) => {
             state.size = size.payload;

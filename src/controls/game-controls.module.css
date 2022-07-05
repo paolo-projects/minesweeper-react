@@ -1,0 +1,13 @@
+.controlsContainer {
+    margin: 0.5em;
+    width: 100%;
+}
+
+.controlsContainer label {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.controlsContainer select {
+    margin-left: 0.5em;
+}

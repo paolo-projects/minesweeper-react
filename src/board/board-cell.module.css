@@ -32,7 +32,7 @@
 }
 
 .boardCell.won {
-    background-color: green;
+    background-color: rgb(0, 205, 0);
 }
 
 .boardCell.probableBomb {

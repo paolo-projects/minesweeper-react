@@ -3,7 +3,7 @@ import React, { CSSProperties } from "react";
 import styles from "./board-cell.module.css";
 import { useAppSelector } from "../app/hooks";
 import bombSvg from "../assets/bomb-svg.svg";
-import { DisplayedCell } from "mynesweeper/lib/minesweeper/board";
+import { DisplayedCell } from "@paoloinfante/minesweeper";
 
 type BoardCellProps = {
     display: DisplayedCell;

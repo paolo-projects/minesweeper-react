@@ -1,13 +1,11 @@
-import Board, {
-    BoardEntry,
-    TestResult,
-} from "mynesweeper/lib/minesweeper/board";
+import { MinesweeperBoard, TestResult } from "@paoloinfante/minesweeper";
+import { BoardEntry } from "@paoloinfante/minesweeper/lib/minesweeper/board";
 
 export default class MinesweeperService implements MinesweeperService {
-    private minesweeperBoard?: Board;
+    private minesweeperBoard?: MinesweeperBoard;
 
     init(size: number, bombsCount: number) {
-        this.minesweeperBoard = new Board({
+        this.minesweeperBoard = new MinesweeperBoard({
             size: size,
             bombsCount: bombsCount,
         });
@@ -22,7 +20,7 @@ export default class MinesweeperService implements MinesweeperService {
     }
 
     reset(size: number, bombsCount: number) {
-        this.minesweeperBoard = new Board({
+        this.minesweeperBoard = new MinesweeperBoard({
             size,
             bombsCount,
         });
