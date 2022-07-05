@@ -13,12 +13,14 @@ jobs:
               with:
                   node-version: 16
 
-            - name: Build node package
+            - name: CI
               run: npm ci
-                  npm run build
+
+            - name: Build
+              run: npm run build
 
             - name: deploy to pages
               uses: peaceiris/actions-gh-pages@v3
               with:
-                  deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: ./build
